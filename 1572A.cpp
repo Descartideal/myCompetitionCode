@@ -1,0 +1,164 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+using pii = pair<int,int>;
+
+using i64 = long long;
+using ll = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+
+using u128 = unsigned __int128;
+using i128 = __int128;
+
+using b32 = bitset<32>;
+using b64 = bitset<64>;
+
+template<class T>
+ostream& operator<<(ostream& os,const vector<T>& v){
+    for(const auto& x:v)os<<x<<" ";
+    return os;
+}
+
+template<class T>
+istream& operator>>(istream& is, vector<T>& v){
+    for(auto& x:v)is>>x;
+    return is;
+}
+
+const int INF = 1e9+7;
+
+inline void solve(){
+    int n;cin>>n;
+    vector<vector<int>> g(n+1),h(n+1);
+    vector<int> indeg(n+1,0),outdeg(n+1,0);
+    for(int i=1;i<=n;++i){
+        int cnt;cin>>cnt;
+        if(cnt==0)continue;
+        indeg[i]+=cnt;
+        for(int j=1;j<=cnt;++j){
+            int k;cin>>k;
+            outdeg[k]++;
+            g[k].push_back(i);
+            h[i].push_back(k);
+        }
+    }
+
+    vector<int> dp(n+1,-1);
+    queue<int> q;
+    for(int i=1;i<=n;++i){
+        if(indeg[i]==0){
+            q.push(i);
+            dp[i]=1;
+        }
+    }
+
+    int used = 0;
+    while(!q.empty()){
+        int x=q.front();q.pop();
+        used++;
+
+        for(int y:g[x]){
+            if(y>x){
+                dp[y] = max(dp[x],dp[y]);
+            }else{
+                dp[y] = max(dp[x]+1,dp[y]);
+            }
+            indeg[y]--;
+            if(indeg[y]==0)q.push(y);
+        }
+    }
+
+    int ans = 1;
+    int j = 0;
+    for(int i=1;i<=n;++i){
+        ans = max(dp[i],ans);
+        if(dp[i]==-1)j=1;
+    }
+
+    if(used!=n){
+        cout<<-1<<endl;
+        return;
+    }
+
+
+    cout<<ans<<endl;
+	return;
+}
+
+
+signed main(){
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);cout.tie(nullptr);cerr.tie(nullptr);
+	int t;cin>>t;
+	while(t--){
+		solve();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+***** Orz  Kiropo *******
+*　　┏┓　　　┏┓+ +
+*　┏┛┻━━━┛┻┓ + +
+*　┃　　　　　　　┃
+*　┃　　　━　　　┃ ++ + + +
+*  ████━████+
+*  ◥██◤　◥██◤ +
+*　┃　　　┻　　　┃
+*　┃　　　　　　　┃ + +
+*　┗━┓　　　┏━┛
+*　　　┃　　　┃ + + + +Code is far away from 　
+*　　　┃　　　┃ + bug with the animal protecting
+*　　　┃　 　 ┗━━━┓ 神兽保佑,代码无bug　
+*　　　┃ 　　　　　　 ┣┓
+*　　  ┃ 　　　　　 　┏┛
+*　    ┗┓┓┏━┳┓┏┛ + + + +
+*　　　　┃┫┫　┃┫┫
+*　　　　┗┻┛　┗┻┛+ + + +
+*/
+
+//————自由是遗忘的左伴随
+
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⡀⣀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⢀⣴⣾⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠛⠻⠿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⡿⠿⠛⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⣰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⣾⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣶⣄⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢹⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠁⠈⢢⡀⠀⠀⠀⢸⡇⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⡟⠒⢦⡀⠀⠀⠀
+⠀⠀⣠⣤⣤⣼⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⠀⠀⠀⠉⢢⣄⠀⠀⢿⠊⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡄⠀⢷⠀⠀⠀
+⠀⢰⠇⠀⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡌⣹⠗⠦⣬⣇⠀⠉⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡀⢸⡄⠀⠀
+⠀⡟⠀⣼⣯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣆⢹⡀⠀⠀⠀⠉⠁⠀⠀⢀⣀⡁⠀⠀⠉⠳⢴⡆⠀⠀⠀⠀⠀⠀⢹⣧⠈⡇⠀⠀
+⠀⡇⠀⠀⢻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⠻⠉⠛⠂⠀⠀⠀⠀⠀⠀⠻⠿⣿⣿⣿⣶⣦⡀⠛⣇⠀⠀⠀⠀⠀⣈⣿⠀⡇⠀⠀
+⢸⡇⠀⠀⢠⣿⣷⣦⣀⡸⣷⣦⣶⡂⠉⠉⠉⢁⣤⣶⡶⠀⠀⠀⣀⣀⡴⠀⠀⠀⠀⠀⠀⠈⠉⠉⠁⠀⡟⢀⣴⣟⣰⣾⣿⣏⣠⠇⠀⠀
+⠈⡇⠀⠀⢸⣿⠁⠉⣿⠛⠛⠃⡇⠀⠀⢠⣶⣿⡿⠛⠁⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠼⢿⠟⠿⢿⡏⠀⠘⣿⡀⠀⠀⠀
+⠀⢷⣀⣀⣿⠇⠀⠀⢿⡇⠀⢀⢱⡀⠀⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⢸⠇⠀⠀⢹⣿⣄⠀⠀
+⠀⠀⣉⣿⡏⠀⠀⠀⠀⠀⠀⢸⣇⣳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⣿⠃⠀⠀⠀⠀⠀⠀⣿⠈⢧⠀
+⠀⠘⣿⣿⠁⠀⠀⠀⠀⠀⠀⠘⣿⡛⣶⠀⠀⣠⠔⠒⠛⠒⠦⡀⠀⠀⠀⠀⣠⡤⠶⠤⢤⣀⠀⠀⠀⢀⣏⡄⠀⠀⠀⠀⠀⡀⣿⡆⠈⣧
+⣠⡾⠛⣿⣿⣧⠀⠀⠀⠀⢸⣿⠾⢿⡿⠀⣰⠃⠀⠀⠀⠀⠀⢹⡄⠀⠀⡼⠁⠀⠀⠀⠀⠈⠙⣦⠀⢸⣿⡇⣾⣣⡀⠀⢰⣿⣿⣿⣤⠾
+⡟⠀⠀⠻⣿⡟⢷⡄⣤⡀⠈⣿⡀⣸⠇⠀⠏⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⢀⡀⠀⠀⠀⠀⢀⡟⠀⠀⠋⣿⣿⣿⡇⣠⣿⠿⠛⢷⡀⠀
+⠀⠀⠀⠀⣿⣇⣨⣿⣿⣿⣦⣽⣷⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠃⠀⠙⠢⠤⠤⠴⢾⠀⠀⠀⠀⢸⣷⣿⣿⠟⠁⠀⠀⠈⣧⠀
+⠀⠀⠀⠀⠈⠉⠉⠁⠈⠉⠈⢉⣿⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣿⠀
+*/

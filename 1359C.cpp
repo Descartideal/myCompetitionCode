@@ -1,0 +1,166 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using pii = pair<int,int>;
+
+using i64 = long long;
+using ll = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+
+using u128 = unsigned __int128;
+using i128 = __int128;
+
+using b32 = bitset<32>;
+using b64 = bitset<64>;
+
+template<class T>
+ostream& operator<<(ostream& os,const vector<T>& v){
+    for(const auto& x:v)os<<x<<" ";
+    return os;
+}
+
+template<class T>
+istream& operator>>(istream& is, vector<T>& v){
+    for(auto& x:v)is>>x;
+    return is;
+}
+
+inline ll mgcd(ll a,ll b){
+    if(a<0)a=-a;
+    if(b<0)b=-b;
+    if(a>b)swap(a,b);
+    if(a==0)return b;
+    return mgcd(b%a,a);
+}
+
+inline void solve(){
+    ll h,c,t;cin>>h>>c>>t;
+    ll a=t-c,b=h-c;
+    ll d = mgcd(a,b);
+    ll p=a/d,q=b/d;
+    auto check = [&](ll x,ll p,ll q){
+        ll z=2*x-1;
+        if(x*q<p*z){
+            return -1;
+        }else if(x*q==p*z){
+            return 0;
+        }else{
+            return 1;
+        }
+    };
+
+    if(p<0 && q<0){
+        p = -p;
+        q = -q;
+    }
+
+    //cerr<<p<<" "<<q<<endl;
+
+    if(2*p<=q){
+        cout<<2<<endl;
+        return;
+    }else if(p>=q){
+        cout<<1<<endl;
+        return;
+    }else{
+        ll l=1,r=1e9,mid=((l+r)>>1);
+        while(l+1<r){
+            int ch = check(mid,p,q);
+            if(ch==-1){
+                r = mid;
+            }else if(ch==1){
+                l = mid;
+            }else{
+                cout<<mid*2-1<<endl;
+                return;
+            }
+            mid=((l+r)>>1);
+        }
+
+        i128 x=l*(2*r-1)+r*(2*l-1),y=(2*r-1)*(2*l-1)*2;
+        if(x*q>p*y){
+            cout<<2*r-1<<endl;
+        }else{
+            cout<<2*l-1<<endl;
+        }
+        return;
+    }
+
+	return;
+}
+
+
+signed main(){
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);cout.tie(nullptr);cerr.tie(nullptr);
+	int t;cin>>t;
+	while(t-->0){
+		solve();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+***** Orz  Kiropo *******
+*　　┏┓　　　┏┓+ +
+*　┏┛┻━━━┛┻┓ + +
+*　┃　　　　　　　┃
+*　┃　　　━　　　┃ ++ + + +
+*  ████━████+
+*  ◥██◤　◥██◤ +
+*　┃　　　┻　　　┃
+*　┃　　　　　　　┃ + +
+*　┗━┓　　　┏━┛
+*　　　┃　　　┃ + + + +Code is far away from 　
+*　　　┃　　　┃ + bug with the animal protecting
+*　　　┃　 　 ┗━━━┓ 神兽保佑,代码无bug　
+*　　　┃ 　　　　　　 ┣┓
+*　　  ┃ 　　　　　 　┏┛
+*　    ┗┓┓┏━┳┓┏┛ + + + +
+*　　　　┃┫┫　┃┫┫
+*　　　　┗┻┛　┗┻┛+ + + +
+*/
+
+//————自由是遗忘的左伴随
+
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⡀⣀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⢀⣴⣾⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠛⠻⠿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⡿⠿⠛⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⣰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⣾⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣶⣄⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢹⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠁⠈⢢⡀⠀⠀⠀⢸⡇⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⡟⠒⢦⡀⠀⠀⠀
+⠀⠀⣠⣤⣤⣼⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⠀⠀⠀⠉⢢⣄⠀⠀⢿⠊⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡄⠀⢷⠀⠀⠀
+⠀⢰⠇⠀⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡌⣹⠗⠦⣬⣇⠀⠉⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡀⢸⡄⠀⠀
+⠀⡟⠀⣼⣯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣆⢹⡀⠀⠀⠀⠉⠁⠀⠀⢀⣀⡁⠀⠀⠉⠳⢴⡆⠀⠀⠀⠀⠀⠀⢹⣧⠈⡇⠀⠀
+⠀⡇⠀⠀⢻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⠻⠉⠛⠂⠀⠀⠀⠀⠀⠀⠻⠿⣿⣿⣿⣶⣦⡀⠛⣇⠀⠀⠀⠀⠀⣈⣿⠀⡇⠀⠀
+⢸⡇⠀⠀⢠⣿⣷⣦⣀⡸⣷⣦⣶⡂⠉⠉⠉⢁⣤⣶⡶⠀⠀⠀⣀⣀⡴⠀⠀⠀⠀⠀⠀⠈⠉⠉⠁⠀⡟⢀⣴⣟⣰⣾⣿⣏⣠⠇⠀⠀
+⠈⡇⠀⠀⢸⣿⠁⠉⣿⠛⠛⠃⡇⠀⠀⢠⣶⣿⡿⠛⠁⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠼⢿⠟⠿⢿⡏⠀⠘⣿⡀⠀⠀⠀
+⠀⢷⣀⣀⣿⠇⠀⠀⢿⡇⠀⢀⢱⡀⠀⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⢸⠇⠀⠀⢹⣿⣄⠀⠀
+⠀⠀⣉⣿⡏⠀⠀⠀⠀⠀⠀⢸⣇⣳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⣿⠃⠀⠀⠀⠀⠀⠀⣿⠈⢧⠀
+⠀⠘⣿⣿⠁⠀⠀⠀⠀⠀⠀⠘⣿⡛⣶⠀⠀⣠⠔⠒⠛⠒⠦⡀⠀⠀⠀⠀⣠⡤⠶⠤⢤⣀⠀⠀⠀⢀⣏⡄⠀⠀⠀⠀⠀⡀⣿⡆⠈⣧
+⣠⡾⠛⣿⣿⣧⠀⠀⠀⠀⢸⣿⠾⢿⡿⠀⣰⠃⠀⠀⠀⠀⠀⢹⡄⠀⠀⡼⠁⠀⠀⠀⠀⠈⠙⣦⠀⢸⣿⡇⣾⣣⡀⠀⢰⣿⣿⣿⣤⠾
+⡟⠀⠀⠻⣿⡟⢷⡄⣤⡀⠈⣿⡀⣸⠇⠀⠏⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⢀⡀⠀⠀⠀⠀⢀⡟⠀⠀⠋⣿⣿⣿⡇⣠⣿⠿⠛⢷⡀⠀
+⠀⠀⠀⠀⣿⣇⣨⣿⣿⣿⣦⣽⣷⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠃⠀⠙⠢⠤⠤⠴⢾⠀⠀⠀⠀⢸⣷⣿⣿⠟⠁⠀⠀⠈⣧⠀
+⠀⠀⠀⠀⠈⠉⠉⠁⠈⠉⠈⢉⣿⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣿⠀
+*/

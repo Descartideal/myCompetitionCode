@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"c:\\Users\\35107\\Desktop\\VScode_file\\26-4-8\\F.cpp","tests":[{"id":1775651340843,"input":"2\n3 4\n..##\n###.\n.##.\n3 2\n..\n##\n..\n","output":"2\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\35107\\Desktop\\VScode_file\\26-4-8\\F.cpp","group":"local","local":true}

@@ -1,0 +1,177 @@
+//teamname: The Farce is Over
+//Acmer: Descartideal
+
+#include <bits/stdc++.h>
+using namespace std;
+
+using pii = pair<int,int>;
+
+using i64 = long long;
+using ll = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+
+using u128 = unsigned __int128;
+using i128 = __int128;
+
+using b32 = bitset<32>;
+using b64 = bitset<64>;
+
+template<class T>
+ostream& operator<<(ostream& os,const vector<T>& v){
+    for(const auto& x:v)os<<x<<" ";
+    return os;
+}
+
+template<class T>
+istream& operator>>(istream& is, vector<T>& v){
+    for(auto& x:v)is>>x;
+    return is;
+}
+
+#define d(x) cerr<<"#---"<<#x<<"=="<<x<<endl;
+#define cerr if(0)cerr
+#define int long long
+
+inline void solve(){
+    int n,m;cin>>n>>m;
+    vector<int> a(n+1,0);
+    for(int i=1;i<=n;++i){
+        cin>>a[i];
+    }
+
+    vector<int> cnt0(1,0),cnt1(1,0);
+    for(int i=1;i<=n;++i){
+        if(i&1){
+            cnt1.push_back(a[i]);
+        }else{
+            cnt0.push_back(a[i]);
+        }
+    }
+    
+    d(cnt0);
+    d(cnt1);
+
+    vector<int> b(m+1,0);
+    for(int i=1;i<=m;++i){
+        cin>>b[i];
+    }
+
+    int q1=0LL,q0=0LL;
+    for(int i=1;i<=m;++i){
+        if(b[i]&1){
+            q1++;
+        }else{
+            q0++;
+        }
+    }
+
+    d(b);
+
+    sort(cnt0.begin()+1,cnt0.end());
+    sort(cnt1.begin()+1,cnt1.end());
+
+    d(cnt0);
+    d(cnt1);
+
+    d(q0);
+    d(q1);
+
+    for(int i=(int)cnt0.size()-1; (i>=1 && q0>0) ;--i){
+        cnt0[i] = 0;
+        q0--;
+        if(cnt0[i-1]<0)break;
+    }
+    for(int i=(int)cnt1.size()-1; (i>=1 && q1>0) ;--i){
+        cnt1[i] = 0;
+        q1--;
+        if(cnt1[i-1]<0)break;
+    }
+
+    d(cnt0);
+    d(cnt1);
+
+    ll res0 = accumulate(cnt0.begin(),cnt0.end(),0LL);
+    ll res1 = accumulate(cnt1.begin(),cnt1.end(),0LL);
+    ll res = res0+res1;
+
+    cout<<res<<endl;
+    cerr<<endl;
+
+	return;
+}
+
+
+signed main(){
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);cout.tie(nullptr);cerr.tie(nullptr);
+	int t;cin>>t;
+	while(t--){
+		solve();
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+***** Orz  Kiropo *******
+*　　┏┓　　　┏┓+ +
+*　┏┛┻━━━┛┻┓ + +
+*　┃　　　　　　　┃
+*　┃　　　━　　　┃ ++ + + +
+*  ████━████+
+*  ◥██◤　◥██◤ +
+*　┃　　　┻　　　┃
+*　┃　　　　　　　┃ + +
+*　┗━┓　　　┏━┛
+*　　　┃　　　┃ + + + +Code is far away from 　
+*　　　┃　　　┃ + bug with the animal protecting
+*　　　┃　 　 ┗━━━┓ 神兽保佑,代码无bug　
+*　　　┃ 　　　　　　 ┣┓
+*　　  ┃ 　　　　　 　┏┛
+*　    ┗┓┓┏━┳┓┏┛ + + + +
+*　　　　┃┫┫　┃┫┫
+*　　　　┗┻┛　┗┻┛+ + + +
+*/
+
+//————自由是遗忘的左伴随
+
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⡀⣀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⢀⣴⣾⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠛⠻⠿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⡿⠿⠛⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⣰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⣾⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣶⣄⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢹⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠁⠈⢢⡀⠀⠀⠀⢸⡇⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⡟⠒⢦⡀⠀⠀⠀
+⠀⠀⣠⣤⣤⣼⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⠀⠀⠀⠉⢢⣄⠀⠀⢿⠊⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡄⠀⢷⠀⠀⠀
+⠀⢰⠇⠀⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡌⣹⠗⠦⣬⣇⠀⠉⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡀⢸⡄⠀⠀
+⠀⡟⠀⣼⣯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣆⢹⡀⠀⠀⠀⠉⠁⠀⠀⢀⣀⡁⠀⠀⠉⠳⢴⡆⠀⠀⠀⠀⠀⠀⢹⣧⠈⡇⠀⠀
+⠀⡇⠀⠀⢻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⠻⠉⠛⠂⠀⠀⠀⠀⠀⠀⠻⠿⣿⣿⣿⣶⣦⡀⠛⣇⠀⠀⠀⠀⠀⣈⣿⠀⡇⠀⠀
+⢸⡇⠀⠀⢠⣿⣷⣦⣀⡸⣷⣦⣶⡂⠉⠉⠉⢁⣤⣶⡶⠀⠀⠀⣀⣀⡴⠀⠀⠀⠀⠀⠀⠈⠉⠉⠁⠀⡟⢀⣴⣟⣰⣾⣿⣏⣠⠇⠀⠀
+⠈⡇⠀⠀⢸⣿⠁⠉⣿⠛⠛⠃⡇⠀⠀⢠⣶⣿⡿⠛⠁⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠼⢿⠟⠿⢿⡏⠀⠘⣿⡀⠀⠀⠀
+⠀⢷⣀⣀⣿⠇⠀⠀⢿⡇⠀⢀⢱⡀⠀⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⢸⠇⠀⠀⢹⣿⣄⠀⠀
+⠀⠀⣉⣿⡏⠀⠀⠀⠀⠀⠀⢸⣇⣳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⣿⠃⠀⠀⠀⠀⠀⠀⣿⠈⢧⠀
+⠀⠘⣿⣿⠁⠀⠀⠀⠀⠀⠀⠘⣿⡛⣶⠀⠀⣠⠔⠒⠛⠒⠦⡀⠀⠀⠀⠀⣠⡤⠶⠤⢤⣀⠀⠀⠀⢀⣏⡄⠀⠀⠀⠀⠀⡀⣿⡆⠈⣧
+⣠⡾⠛⣿⣿⣧⠀⠀⠀⠀⢸⣿⠾⢿⡿⠀⣰⠃⠀⠀⠀⠀⠀⢹⡄⠀⠀⡼⠁⠀⠀⠀⠀⠈⠙⣦⠀⢸⣿⡇⣾⣣⡀⠀⢰⣿⣿⣿⣤⠾
+⡟⠀⠀⠻⣿⡟⢷⡄⣤⡀⠈⣿⡀⣸⠇⠀⠏⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⢀⡀⠀⠀⠀⠀⢀⡟⠀⠀⠋⣿⣿⣿⡇⣠⣿⠿⠛⢷⡀⠀
+⠀⠀⠀⠀⣿⣇⣨⣿⣿⣿⣦⣽⣷⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠃⠀⠙⠢⠤⠤⠴⢾⠀⠀⠀⠀⢸⣷⣿⣿⠟⠁⠀⠀⠈⣧⠀
+⠀⠀⠀⠀⠈⠉⠉⠁⠈⠉⠈⢉⣿⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣿⠀
+*/

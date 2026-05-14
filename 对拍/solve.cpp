@@ -1,0 +1,194 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using pii = pair<int,int>;
+
+using i64 = long long;
+using ll = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+
+using u128 = unsigned __int128;
+using i128 = __int128;
+
+using b32 = bitset<32>;
+using b64 = bitset<64>;
+
+template<class T>
+ostream& operator<<(ostream& os,const vector<T>& v){
+    for(const auto& x:v)os<<x<<" ";
+    return os;
+}
+
+template<class T>
+istream& operator>>(istream& is, vector<T>& v){
+    for(auto& x:v)is>>x;
+    return is;
+}
+
+#define d(x) cerr<<"#---"<<#x<<"=="<<x<<endl;
+#define cerr if(0)cerr
+
+inline void solve(){
+    int n,k;cin>>n>>k;
+    vector<int> a(n+1,0);for(int i=1;i<=n;++i)cin>>a[i];
+
+    vector<pii> p;
+    int cnt = 0;
+    {
+        int state = a[1];
+        int start = 1;
+        
+        int siz = 1;
+        for(int i=2;i<=n;++i){
+            int x = a[i];
+            d(state);
+            d(x);
+            if(state==x){
+                siz++;
+                continue;
+            }else{
+                p.push_back({start,siz});
+                start = i;
+                state = x;
+                siz = 1;
+                cnt++;
+            }
+        }
+        p.push_back({start,siz});
+        cnt++;
+    }
+/**
+    for(auto [x,y]:p){
+        cout<<x<<","<<y<<" ";
+    }cout<<endl;
+ */
+    d(cnt);
+
+    if(cnt==k){
+        cout<<0<<'\n';
+        return;
+    }
+
+    int c;
+    vector<int> ans;
+    if(cnt<k){
+        int diff = k-cnt;
+        vector<int> w(n+1,0);
+        for(int i=1;i<=n;++i){
+            w[ a[i] ] ++;
+        }
+        c = 0;
+        for(int i=1;i<=n;++i){
+            if(w[i]==0){
+                c = i;
+                break;
+            }
+        }
+
+        vector<int> b(n+1,0);
+        for(int i=1;i<=n;++i){
+            if(b[i-1])continue;
+            if(a[i]==a[i+1] || a[i]==a[i-1]){
+                b[i] = 1;
+                diff--;
+            }
+            if(diff==0)break;
+        }
+
+        
+        for(int i=1;i<=n;++i){
+            if(b[i]){
+                ans.push_back(i);
+            }
+        }
+    }else{
+        int diff = cnt - k;
+        auto [x,y]=p[diff];
+        int limit = x+y-1;
+        c = a[1];
+        for(int i=1;i<=limit;++i){
+            ans.push_back(i);
+        }
+    }
+
+    cout<<1<<"\n";
+    cout<<ans.size()<<" ";
+    for(int x:ans){
+        cout<<x<<" ";
+    }cout<<c<<endl;
+
+	return;
+}
+
+
+signed main(){
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);cout.tie(nullptr);cerr.tie(nullptr);
+	solve();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+***** Orz  Kiropo *******
+*　　┏┓　　　┏┓+ +
+*　┏┛┻━━━┛┻┓ + +
+*　┃　　　　　　　┃
+*　┃　　　━　　　┃ ++ + + +
+*  ████━████+
+*  ◥██◤　◥██◤ +
+*　┃　　　┻　　　┃
+*　┃　　　　　　　┃ + +
+*　┗━┓　　　┏━┛
+*　　　┃　　　┃ + + + +Code is far away from 　
+*　　　┃　　　┃ + bug with the animal protecting
+*　　　┃　 　 ┗━━━┓ 神兽保佑,代码无bug　
+*　　　┃ 　　　　　　 ┣┓
+*　　  ┃ 　　　　　 　┏┛
+*　    ┗┓┓┏━┳┓┏┛ + + + +
+*　　　　┃┫┫　┃┫┫
+*　　　　┗┻┛　┗┻┛+ + + +
+*/
+
+//————自由是遗忘的左伴随
+
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⡀⣀⣠⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⢀⣴⣾⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠛⠻⠿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⡿⠿⠛⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⣰⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⣾⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣶⣄⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢹⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠁⠈⢢⡀⠀⠀⠀⢸⡇⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⡟⠒⢦⡀⠀⠀⠀
+⠀⠀⣠⣤⣤⣼⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⠀⠀⠀⠉⢢⣄⠀⠀⢿⠊⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⡄⠀⢷⠀⠀⠀
+⠀⢰⠇⠀⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡌⣹⠗⠦⣬⣇⠀⠉⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡀⢸⡄⠀⠀
+⠀⡟⠀⣼⣯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣆⢹⡀⠀⠀⠀⠉⠁⠀⠀⢀⣀⡁⠀⠀⠉⠳⢴⡆⠀⠀⠀⠀⠀⠀⢹⣧⠈⡇⠀⠀
+⠀⡇⠀⠀⢻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⠻⠉⠛⠂⠀⠀⠀⠀⠀⠀⠻⠿⣿⣿⣿⣶⣦⡀⠛⣇⠀⠀⠀⠀⠀⣈⣿⠀⡇⠀⠀
+⢸⡇⠀⠀⢠⣿⣷⣦⣀⡸⣷⣦⣶⡂⠉⠉⠉⢁⣤⣶⡶⠀⠀⠀⣀⣀⡴⠀⠀⠀⠀⠀⠀⠈⠉⠉⠁⠀⡟⢀⣴⣟⣰⣾⣿⣏⣠⠇⠀⠀
+⠈⡇⠀⠀⢸⣿⠁⠉⣿⠛⠛⠃⡇⠀⠀⢠⣶⣿⡿⠛⠁⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠼⢿⠟⠿⢿⡏⠀⠘⣿⡀⠀⠀⠀
+⠀⢷⣀⣀⣿⠇⠀⠀⢿⡇⠀⢀⢱⡀⠀⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⢸⠇⠀⠀⢹⣿⣄⠀⠀
+⠀⠀⣉⣿⡏⠀⠀⠀⠀⠀⠀⢸⣇⣳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⣿⠃⠀⠀⠀⠀⠀⠀⣿⠈⢧⠀
+⠀⠘⣿⣿⠁⠀⠀⠀⠀⠀⠀⠘⣿⡛⣶⠀⠀⣠⠔⠒⠛⠒⠦⡀⠀⠀⠀⠀⣠⡤⠶⠤⢤⣀⠀⠀⠀⢀⣏⡄⠀⠀⠀⠀⠀⡀⣿⡆⠈⣧
+⣠⡾⠛⣿⣿⣧⠀⠀⠀⠀⢸⣿⠾⢿⡿⠀⣰⠃⠀⠀⠀⠀⠀⢹⡄⠀⠀⡼⠁⠀⠀⠀⠀⠈⠙⣦⠀⢸⣿⡇⣾⣣⡀⠀⢰⣿⣿⣿⣤⠾
+⡟⠀⠀⠻⣿⡟⢷⡄⣤⡀⠈⣿⡀⣸⠇⠀⠏⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⡇⢀⡀⠀⠀⠀⠀⢀⡟⠀⠀⠋⣿⣿⣿⡇⣠⣿⠿⠛⢷⡀⠀
+⠀⠀⠀⠀⣿⣇⣨⣿⣿⣿⣦⣽⣷⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠃⠀⠙⠢⠤⠤⠴⢾⠀⠀⠀⠀⢸⣷⣿⣿⠟⠁⠀⠀⠈⣧⠀
+⠀⠀⠀⠀⠈⠉⠉⠁⠈⠉⠈⢉⣿⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⣿⠀
+*/
